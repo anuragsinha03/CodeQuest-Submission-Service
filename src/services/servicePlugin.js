@@ -6,7 +6,7 @@ async function servicePlugin(fastify, options) {
 	//	This is particularly useful for extending Fastify's functionality in a modular and reusable way.
 	fastify.decorate(
 		"submissionService",
-		new SubmissionService(this.submissionRepository)
+		new SubmissionService(fastify.submissionRepository)
 	);
 }
 
