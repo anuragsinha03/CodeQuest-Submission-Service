@@ -14,6 +14,8 @@ class SubmissionService {
 	async addSubmission(submissionPayload) {
 		//Hit the problem service api and fetch the problem details
 		const problemId = submissionPayload.problemId;
+		const userId = submissionPayload.userId;
+
 		const problemServiceApiResponse = await fetchProblemDetails(problemId);
 
 		if (!problemServiceApiResponse) {
@@ -22,14 +24,14 @@ class SubmissionService {
 			);
 		}
 
-		console.log(problemServiceApiResponse.data.codeStubs);
+		// console.log(problemServiceApiResponse.data.codeStubs);
 		const languageCodeStubs = problemServiceApiResponse.data.codeStubs.find(
 			codeStub =>
 				codeStub.language.toLowerCase() ===
 				submissionPayload.language.toLowerCase()
 		);
 
-		console.log(languageCodeStubs);
+		// console.log(languageCodeStubs);
 		if (submissionPayload.endSnippet != undefined) {
 			submissionPayload.code =
 				languageCodeStubs.startSnippet +
@@ -54,15 +56,19 @@ class SubmissionService {
 				"Failed to create a submission in the repository!"
 			);
 		}
-		console.log(submission);
+		// console.log(submission);
 		const response = await SubmissionProducer({
 			[submission._id]: {
 				code: submission.code,
 				language: submission.language,
 				inputCase: problemServiceApiResponse.data.testCases[0].input,
 				outputCase: problemServiceApiResponse.data.testCases[0].output,
+				userId: userId,
+				submissionId: submission._id,
 			},
 		});
+
+		//Todo: Add handling of all test cases here
 		return {
 			queueReponse: response,
 			submission,
