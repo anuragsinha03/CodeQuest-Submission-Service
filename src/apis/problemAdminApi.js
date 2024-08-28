@@ -7,7 +7,7 @@ async function fetchProblemDetails(problemId) {
 	try {
 		const uri = PROBLEM_ADMIN_API_URL + `/problems/${problemId}`;
 		const response = await axiosInstance.get(uri);
-		console.log("API response: ", response);
+		// console.log("API response: ", response);
 		return response.data;
 	} catch (error) {
 		console.log("Something went wrong while fetching problem details");

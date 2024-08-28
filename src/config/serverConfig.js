@@ -8,4 +8,5 @@ module.exports = {
 	ATLAS_DB_URL: process.env.ATLAS_DB_URL,
 	NODE_ENV: process.env.NODE_ENV,
 	PROBLEM_ADMIN_SERVICE_URL: process.env.PROBLEM_ADMIN_SERVICE,
+	WEBSOCKET_SERVICE_URL: process.env.WEBSOCKET_SERVICE,
 };
